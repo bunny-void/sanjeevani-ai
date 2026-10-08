@@ -1,0 +1,750 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>MediCare Pharmacy</title>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--g:#0f6b4f;--g2:#0b5039;--acc:#e8a33d;--bg:#f6faf7;--card:#fff;--tx:#1f2d27;--mt:#66756e;--ln:#dfe9e3}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:Poppins,sans-serif;background:var(--bg);color:var(--tx)}
+a{color:inherit;text-decoration:none}
+.offer{background:var(--g2);color:#fff;font-size:13px;padding:8px 16px;display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap}
+.offer b{color:var(--acc)}
+header{background:#fff;border-bottom:1px solid var(--ln);position:sticky;top:0;z-index:20}
+.top{max-width:1300px;margin:auto;display:flex;align-items:center;gap:20px;padding:14px 16px}
+.logo{display:flex;align-items:center;gap:10px}
+.logo .ic{width:44px;height:44px;border-radius:50%;background:var(--g);color:#fff;display:grid;place-items:center;font-size:24px;font-weight:700}
+.logo h1{font-family:Cinzel,serif;font-size:21px;color:var(--g)}
+.logo small{display:block;font-size:10px;color:var(--mt);letter-spacing:1px}
+.search{flex:1;display:flex;border:1px solid var(--ln);border-radius:30px;overflow:hidden}
+.search input{flex:1;border:0;padding:11px 18px;font:inherit;outline:0;min-width:0}
+.search button{background:var(--g);color:#fff;border:0;padding:0 20px;cursor:pointer}
+.icons{display:flex;gap:18px;font-size:14px}
+.icons span{cursor:pointer;position:relative}
+.badge{position:absolute;top:-8px;right:-12px;background:var(--acc);color:#fff;font-size:11px;border-radius:10px;padding:0 6px;font-style:normal}
+nav{max-width:1300px;margin:auto;display:flex;gap:6px;padding:0 16px 10px;overflow-x:auto}
+nav a{white-space:nowrap;font-size:14px;padding:6px 12px;border-radius:20px;cursor:pointer}
+nav a:hover,nav a.on{background:var(--g);color:#fff}
+.hero{background:linear-gradient(135deg,#e7f4ec,#fdf6ea);text-align:center;padding:70px 16px}
+.pill{display:inline-block;background:#fff;color:var(--g);border:1px solid var(--g);border-radius:20px;padding:5px 14px;font-size:12px;font-weight:600}
+.hero h2{font-family:Cinzel,serif;font-size:clamp(28px,5vw,48px);color:var(--g2);margin:18px 0}
+.hero p{max-width:720px;margin:auto;color:var(--mt)}
+.hero em{display:block;color:var(--acc);font-weight:500;margin-bottom:10px}
+.btn{display:inline-block;background:var(--g);color:#fff;border:0;border-radius:6px;padding:12px 26px;margin:24px 6px 0;cursor:pointer;font:inherit}
+.btn.o{background:#fff;color:var(--g);border:1px solid var(--g)}
+.feat{max-width:1300px;margin:30px auto;display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:16px;padding:0 16px}
+.feat div{background:#fff;border:1px solid var(--ln);border-radius:10px;padding:18px;font-size:14px}
+.feat b{display:block;color:var(--g)}
+.sec{max-width:1300px;margin:40px auto;padding:0 16px}
+.sec h3{font-family:Cinzel,serif;font-size:28px;color:var(--g2);text-align:center}
+.sub{text-align:center;color:var(--mt);margin-bottom:24px}
+.cats{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:14px}
+.cat{background:#fff;border:1px solid var(--ln);border-radius:12px;padding:18px;text-align:center;cursor:pointer;transition:.2s}
+.cat:hover{transform:translateY(-3px);border-color:var(--g)}
+.cat .e{font-size:32px}.cat p{font-size:13px;margin-top:6px;font-weight:500}
+.bar{display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;flex-wrap:wrap;gap:10px}
+select{padding:8px;border:1px solid var(--ln);border-radius:6px;font:inherit}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:18px}
+.card{background:var(--card);border:1px solid var(--ln);border-radius:12px;overflow:hidden;display:flex;flex-direction:column;position:relative}
+.card .img{height:170px;display:grid;place-items:center;font-size:54px;background:#eef6f1;position:relative}
+.card .img svg{width:100%;height:100%}
+.card .img img{display:none;position:absolute;inset:0;width:100%;height:100%;object-fit:contain;background:#fff;padding:8px}
+.card .rx{position:absolute;top:10px;left:10px;background:#c0392b;color:#fff;font-size:11px;padding:2px 8px;border-radius:10px}
+.card .wl{position:absolute;top:8px;right:10px;cursor:pointer;font-size:20px;background:none;border:0}
+.card .b{padding:14px;flex:1;display:flex;flex-direction:column}
+.card h4{font-size:15px}.card .u{font-size:12px;color:var(--mt);margin:3px 0 8px}
+.card .d{font-size:12px;color:var(--mt);flex:1}
+.pr{display:flex;align-items:center;justify-content:space-between;margin-top:12px}
+.pr b{color:var(--g);font-size:17px}.pr s{color:var(--mt);font-size:12px;margin-left:4px}
+.add{background:var(--g);color:#fff;border:0;border-radius:6px;padding:7px 14px;cursor:pointer;font:inherit;font-size:13px}
+.empty{text-align:center;color:var(--mt);padding:40px}
+.drawer{position:fixed;top:0;right:-420px;width:min(400px,100%);height:100%;background:#fff;z-index:50;box-shadow:-4px 0 20px #0002;transition:.3s;display:flex;flex-direction:column}
+.drawer.op{right:0}
+.drawer h3{padding:18px;border-bottom:1px solid var(--ln);display:flex;justify-content:space-between}
+.items{flex:1;overflow:auto;padding:12px 18px}
+.it{display:flex;gap:10px;align-items:center;border-bottom:1px solid var(--ln);padding:10px 0;font-size:14px}
+.it div{flex:1}.it button{border:1px solid var(--ln);background:#fff;width:26px;height:26px;cursor:pointer;border-radius:4px}
+.tot{padding:18px;border-top:1px solid var(--ln)}
+.ov{position:fixed;inset:0;background:#0005;z-index:40;display:none}.ov.op{display:block}
+.note{background:#fff7e6;border:1px solid #f1d7a3;border-radius:10px;padding:14px;font-size:13px;margin-top:20px}
+footer{background:var(--g2);color:#d8e8df;margin-top:60px;padding:40px 16px;font-size:14px}
+footer .w{max-width:1300px;margin:auto;display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:24px}
+footer h5{font-family:Cinzel,serif;color:#fff;font-size:16px;margin-bottom:10px}
+.toast{position:fixed;bottom:20px;left:50%;transform:translateX(-50%);background:var(--g2);color:#fff;padding:10px 20px;border-radius:30px;opacity:0;transition:.3s;z-index:60;pointer-events:none}
+.toast.sh{opacity:1}
+.modal{position:fixed;inset:0;background:#0006;z-index:70;display:none;align-items:center;justify-content:center;padding:16px}
+.modal.op{display:flex}
+.mbox{background:#fff;border-radius:14px;width:min(560px,100%);max-height:92vh;overflow:auto;padding:24px}
+.mbox h3{font-family:Cinzel,serif;color:var(--g2);display:flex;justify-content:space-between;margin-bottom:6px}
+.mbox label{display:block;font-size:13px;font-weight:500;margin:12px 0 4px}
+.mbox input,.mbox textarea{width:100%;padding:9px 12px;border:1px solid var(--ln);border-radius:6px;font:inherit}
+.drop{border:2px dashed var(--g);border-radius:10px;padding:22px;text-align:center;cursor:pointer;background:#f3faf6;color:var(--g);margin-top:12px}
+.drop.on{background:#e2f3ea}
+.prev{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
+.prev div{width:80px;height:80px;border:1px solid var(--ln);border-radius:6px;overflow:hidden;display:grid;place-items:center;font-size:11px;text-align:center;background:#fafafa}
+.prev img{width:100%;height:100%;object-fit:cover}
+.rxl{margin-top:20px;border-top:1px solid var(--ln);padding-top:14px}
+.rxi{display:flex;gap:10px;align-items:center;border:1px solid var(--ln);border-radius:8px;padding:8px;margin-top:8px;font-size:13px}
+.rxi img{width:48px;height:48px;object-fit:cover;border-radius:4px}
+.rxi div{flex:1}.rxi button{border:0;background:none;color:#c0392b;cursor:pointer;font-size:13px}
+.scan{margin-top:16px;border:1px solid var(--ln);border-radius:10px;padding:14px;background:#f8fbf9}
+.scan h4{color:var(--g2);margin-bottom:6px}
+.det{display:flex;align-items:center;gap:8px;padding:7px 0;border-bottom:1px solid var(--ln);font-size:13px}
+.det span{flex:1}.det input[type=number]{width:54px;padding:4px}
+.det input[type=checkbox]{width:auto}
+.prog{height:6px;background:var(--ln);border-radius:4px;overflow:hidden;margin:8px 0}.prog i{display:block;height:100%;background:var(--g);width:0;transition:.2s}
+.co h4{color:var(--g2);margin:18px 0 6px;font-size:15px}
+.co .row{display:flex;justify-content:space-between;font-size:13px;padding:4px 0}
+.co .two{display:grid;grid-template-columns:1fr 1fr;gap:0 10px}
+.opt{display:flex;gap:8px;align-items:flex-start;border:1px solid var(--ln);border-radius:8px;padding:10px;margin-top:6px;font-size:13px;cursor:pointer}
+.opt input{width:auto;margin-top:3px}
+.ok{text-align:center}.ok .big{font-size:56px}
+.rxbtn{background:var(--acc);color:#fff;border-radius:20px;padding:6px 12px}
+.sanjeevani-top-ribbon{background:linear-gradient(90deg,#0f5c7a,#0f6b4f);color:#fff;padding:10px 16px;font-size:13px;display:none;align-items:center;justify-content:center;gap:12px;flex-wrap:wrap;text-align:center;border-bottom:2px solid var(--acc)}
+.sanjeevani-top-ribbon.active{display:flex}
+.sanjeevani-pill{background:var(--acc);color:#1f2d27;font-weight:700;font-size:11px;padding:3px 10px;border-radius:20px;text-transform:uppercase;letter-spacing:.5px}
+.sanjeevani-spotlight{background:linear-gradient(135deg,#e8f6f0,#eef7fb);border:2px solid #0f5c7a;border-radius:14px;padding:18px 20px;margin-bottom:22px;display:none;box-shadow:0 10px 26px rgba(15,92,122,.12)}
+.sanjeevani-spotlight.active{display:block}
+.card.sanjeevani-selected{border:3px solid #0f5c7a;background:#f2fbf7;box-shadow:0 0 0 5px rgba(15,92,122,.18),0 16px 32px rgba(15,107,79,.22);transform:translateY(-3px);transition:.3s}
+.sanjeevani-badge-bar{background:linear-gradient(90deg,#0f5c7a,#0f6b4f);color:#fff;padding:7px 10px;font-size:11px;font-weight:600;display:flex;align-items:center;justify-content:space-between;gap:6px;flex-wrap:wrap}
+.sanjeevani-badge-bar span.proto{background:rgba(255,255,255,.2);padding:2px 7px;border-radius:10px;font-size:10px}
+.sanjeevani-details-box{margin-top:10px;padding:10px;border-radius:8px;background:#e4f4ec;border:1px solid #b5dec8;font-size:12px;color:#143d2d}
+.sanjeevani-demo-btn{width:100%;margin-top:10px;background:linear-gradient(90deg,#0f5c7a,#0f6b4f);color:#fff;border:0;border-radius:8px;padding:10px 14px;font:inherit;font-size:13px;font-weight:600;cursor:pointer;box-shadow:0 4px 12px rgba(15,92,122,.25)}
+.sanjeevani-demo-btn:hover{opacity:.95}
+.demo-proto-banner{background:#fff8e6;border:1px solid #f0c975;color:#6e4b00;padding:10px 12px;border-radius:8px;font-size:12px;margin:10px 0;display:flex;align-items:center;justify-content:space-between;gap:8px;flex-wrap:wrap}
+
+@media(max-width:700px){.top{flex-wrap:wrap}.search{order:3;flex-basis:100%}.icons{margin-left:auto}}
+</style>
+</head>
+<body>
+<div class="sanjeevani-top-ribbon" id="sanjeevaniRibbon">
+ <span class="sanjeevani-pill">Hackathon Prototype / Demo</span>
+ <span id="sanjeevaniRibbonText"><b>Selected from Sanjeevani AI:</b> Deep-link refill handoff active (No real cart or payment)</span>
+</div>
+<div class="offer"><span>🎉 <b>HEALTH OFFER:</b> Flat 20% off on orders above ₹999 | Free delivery above ₹499</span><span>📞 24x7 Helpline: 1800-123-4567</span></div>
+<header>
+ <div class="top">
+  <div class="logo"><div class="ic">✚</div><div><h1>MediCare Pharmacy</h1><small>TRUSTED MEDICINES • ESTD. 1995</small></div></div>
+  <div class="search"><input id="q" placeholder="Search medicines, e.g. Paracetamol, Dolo, ORS..."><button onclick="go()">🔍</button></div>
+  <div class="icons"><span class="rxbtn" onclick="openRx()">📄 Upload Prescription<i class="badge" id="rc" style="background:var(--g2)">0</i></span><span>👤 Account</span><span onclick="showWish()">♡ Wishlist<i class="badge" id="wc">0</i></span><span onclick="tog(1)">🛒 Cart<i class="badge" id="cc">0</i></span></div>
+ </div>
+ <nav id="nav"></nav>
+</header>
+
+<section class="hero">
+ <span class="pill">✚ 100% GENUINE MEDICINES</span>
+ <h2>Your Trusted Neighbourhood Pharmacy,<br>Delivered to Your Doorstep</h2>
+ <em>"Every medicine you need – from fever tablets to diabetes care."</em>
+ <p>Browse everyday medicines, OTC products, vitamins, baby care and first-aid essentials available at a regular medical shop. Licensed pharmacists verify every prescription order.</p>
+ <a class="btn" href="#shop">Shop Medicines</a><a class="btn o" href="#cats">Browse Categories</a><a class="btn o" onclick="openRx()">📄 Upload Prescription</a>
+</section>
+
+<div class="feat">
+ <div><b>🚚 Fast Delivery</b>Same-day delivery in your city</div>
+ <div><b>✅ 100% Genuine</b>Sourced directly from licensed distributors</div>
+ <div><b>💊 Pharmacist Support</b>Free consultation on dosage &amp; usage</div>
+ <div><b>🔒 Secure Checkout</b>UPI, cards &amp; cash on delivery</div>
+</div>
+
+<section class="sec" id="cats"><h3>Shop by Category</h3><p class="sub">Everything a medical store stocks, neatly organised</p><div class="cats" id="catGrid"></div></section>
+
+<section class="sec" id="shop">
+ <div class="sanjeevani-spotlight" id="sanjeevaniSpotlight"></div>
+ <h3 id="title">All Medicines</h3><p class="sub" id="count"></p>
+ <div class="bar"><select id="rxf" onchange="render()"><option value="">All products</option><option value="otc">OTC only</option><option value="rx">Prescription (Rx) only</option></select>
+ <select id="sort" onchange="render()"><option value="">Sort: Featured</option><option value="lo">Price: Low to High</option><option value="hi">Price: High to Low</option><option value="az">Name: A–Z</option></select></div>
+ <div class="grid" id="grid"></div>
+ <div class="note">⚠️ <b>Disclaimer:</b> Prices are indicative MRP. Products marked <b>Rx</b> need a valid prescription from a registered doctor. Always consult a doctor or pharmacist before taking any medicine.</div>
+</section>
+
+<footer><div class="w">
+ <div><h5>MediCare Pharmacy</h5>Serving families with genuine medicines and caring advice since 1995.</div>
+ <div><h5>Quick Links</h5>About Us<br><a style="cursor:pointer;text-decoration:underline" onclick="openRx()">Upload Prescription</a><br>Track Order<br>FAQs</div>
+ <div><h5>Policies</h5>Returns &amp; Refunds<br>Privacy Policy<br>Terms of Service</div>
+ <div><h5>Contact</h5>📍 MG Road, Bengaluru<br>📞 1800-123-4567<br>✉ care@medicare.example</div>
+</div><p style="text-align:center;margin-top:30px;opacity:.7">© 2026 MediCare Pharmacy. All rights reserved.</p></footer>
+
+<div class="ov" id="ov" onclick="tog(0)"></div>
+<div class="drawer" id="dr"><h3>Your Cart <span style="cursor:pointer" onclick="tog(0)">✕</span></h3><div class="items" id="items"></div>
+<div class="tot"><div class="bar"><b>Total</b><b id="tt">₹0</b></div><button class="btn" style="width:100%;margin:0" onclick="checkout()">Proceed to Checkout</button></div></div>
+<div class="toast" id="toast"></div>
+<div class="modal" id="com" onclick="if(event.target==this)closeCo()"><div class="mbox co" id="cobox"></div></div>
+<div class="modal" id="demoCoModal" onclick="if(event.target==this)closeDemoCheckout()"><div class="mbox co" id="demoCoBox"></div></div>
+<div class="modal" id="rxm" onclick="if(event.target==this)closeRx()"><div class="mbox">
+ <h3>📄 Upload Prescription <span style="cursor:pointer" onclick="closeRx()">✕</span></h3>
+ <p style="font-size:13px;color:var(--mt)">Upload a clear photo or PDF of the prescription your doctor gave you. Our pharmacist will check it before dispatching Rx medicines.</p>
+ <label>Patient name *</label><input id="rxp" placeholder="e.g. Ramesh Kumar">
+ <label>Doctor name</label><input id="rxd" placeholder="e.g. Dr. S. Rao">
+ <label>Prescription date</label><input id="rxdt" type="date">
+ <label>Notes for the pharmacist</label><textarea id="rxn" rows="2" placeholder="e.g. Need 1 month supply"></textarea>
+ <div class="drop" id="drop" onclick="document.getElementById('rxf2').click()">📤 <b>Click to choose</b> or drag &amp; drop files here<br><small>JPG, PNG or PDF • up to 5 files</small></div>
+ <input type="file" id="rxf2" accept="image/*,application/pdf" multiple hidden>
+ <div class="prev" id="prev"></div>
+ <button class="btn" style="width:100%;margin-top:16px" onclick="saveRx()">Save &amp; Read Prescription</button>
+ <div class="scan" id="scan" style="display:none"></div>
+ <label>Can't read it? Type the medicine names from the prescription</label>
+ <textarea id="rxtype" rows="2" placeholder="e.g. Augmentin 625, Dolo 650, Pan 40"></textarea>
+ <button class="btn o" style="width:100%;margin-top:8px" onclick="findMeds($('rxtype').value,'typed list')">Find these medicines</button>
+ <div class="rxl"><b>Your prescriptions</b><div id="rxlist"></div></div>
+ <p style="font-size:11px;color:var(--mt);margin-top:12px">🔒 Prescriptions are stored privately in this browser on this device.</p>
+</div></div>
+
+<script>
+const CATS={"Fever & Pain":"🌡️","Cold, Cough & Allergy":"🤧","Stomach & Digestion":"🫃","Antibiotics":"💊","Diabetes Care":"🩸","Heart & BP":"❤️","Vitamins & Supplements":"🍊","Skin Care":"🧴","Eye & Ear Care":"👁️","Women's Health":"🌸","Baby Care":"🍼","First Aid":"🩹","Ayurveda":"🌿","Thyroid & Hormones":"🦋","Mental Health & Sleep":"🧠","Personal Care":"🪥","Devices":"🩺"};
+// category|name|use|pack|MRP|rx
+const D=`Fever & Pain|Dolo 650 Tablet|Paracetamol 650mg – fever & body pain|Strip of 15|34|0
+Fever & Pain|Crocin Advance|Paracetamol 500mg – fast fever relief|Strip of 20|30|0
+Fever & Pain|Calpol 500|Paracetamol 500mg|Strip of 15|17|0
+Fever & Pain|Combiflam|Ibuprofen + Paracetamol – pain & inflammation|Strip of 20|45|0
+Fever & Pain|Disprin|Aspirin 350mg – headache relief|Strip of 10|12|0
+Fever & Pain|Saridon|Headache relief tablet|Strip of 10|42|0
+Fever & Pain|Zerodol-SP|Aceclofenac + Paracetamol + Serratiopeptidase|Strip of 10|118|1
+Fever & Pain|Hifenac-P|Aceclofenac + Paracetamol|Strip of 10|65|1
+Fever & Pain|Brufen 400|Ibuprofen 400mg|Strip of 15|28|0
+Fever & Pain|Volini Gel|Diclofenac pain-relief gel|30 g tube|165|0
+Fever & Pain|Moov Ointment|Pain relief for back & joints|50 g|175|0
+Fever & Pain|Iodex Balm|Body pain relief balm|40 g|130|0
+Fever & Pain|Meftal Spas|Mefenamic acid + Dicyclomine – cramps|Strip of 10|52|1
+Fever & Pain|Ultracet|Tramadol + Paracetamol|Strip of 15|240|1
+Fever & Pain|Nise|Nimesulide 100mg|Strip of 15|70|1
+Cold, Cough & Allergy|Okacet (Cetirizine 10mg)|Antihistamine for allergy|Strip of 10|20|0
+Cold, Cough & Allergy|Allegra 120|Fexofenadine – allergy & sneezing|Strip of 10|210|0
+Cold, Cough & Allergy|Montair LC|Montelukast + Levocetirizine|Strip of 10|240|1
+Cold, Cough & Allergy|Sinarest|Cold & flu combination tablet|Strip of 10|58|0
+Cold, Cough & Allergy|Vicks Action 500|Cold relief tablet|Strip of 10|50|0
+Cold, Cough & Allergy|Benadryl Cough Syrup|Diphenhydramine cough formula|150 ml|135|0
+Cold, Cough & Allergy|Ascoril LS Syrup|Ambroxol + Levosalbutamol – wet cough|100 ml|118|1
+Cold, Cough & Allergy|Grilinctus Syrup|Dry cough relief|100 ml|125|1
+Cold, Cough & Allergy|Honitus Syrup|Ayurvedic cough syrup|100 ml|105|0
+Cold, Cough & Allergy|Vicks VapoRub|Nasal congestion relief|50 ml|160|0
+Cold, Cough & Allergy|Otrivin Nasal Spray|Xylometazoline – blocked nose|10 ml|110|0
+Cold, Cough & Allergy|Strepsils|Sore throat lozenges|Pack of 8|40|0
+Cold, Cough & Allergy|Avil 25|Pheniramine – allergy|Strip of 15|14|0
+Cold, Cough & Allergy|Asthalin Inhaler|Salbutamol inhaler – asthma|200 doses|155|1
+Cold, Cough & Allergy|Budecort 200 Inhaler|Budesonide inhaler|200 doses|420|1
+Stomach & Digestion|Pan 40|Pantoprazole – acidity & GERD|Strip of 15|165|1
+Stomach & Digestion|Pantocid DSR|Pantoprazole + Domperidone|Strip of 15|230|1
+Stomach & Digestion|Omez 20|Omeprazole capsule|Strip of 20|60|1
+Stomach & Digestion|Digene Gel|Antacid – mint flavour|200 ml|150|0
+Stomach & Digestion|Eno Fruit Salt|Instant acidity relief|Pack of 6 sachets|60|0
+Stomach & Digestion|Gelusil MPS|Antacid & anti-gas|200 ml|130|0
+Stomach & Digestion|Electral ORS|WHO-formula oral rehydration|Pack of 5 sachets|105|0
+Stomach & Digestion|Enterogermina|Probiotic – diarrhoea|Pack of 5 vials|285|0
+Stomach & Digestion|Ondem 4|Ondansetron – nausea & vomiting|Strip of 10|60|1
+Stomach & Digestion|Domstal|Domperidone – nausea|Strip of 10|40|1
+Stomach & Digestion|Cyclopam|Dicyclomine – stomach cramps|Strip of 10|45|1
+Stomach & Digestion|Dulcolax|Bisacodyl – constipation|Strip of 10|25|0
+Stomach & Digestion|Cremaffin Plus|Laxative syrup|225 ml|230|0
+Stomach & Digestion|Sat Isabgol|Psyllium husk – fibre|100 g|130|0
+Stomach & Digestion|Pudin Hara Pearls|Mint oil – gas & indigestion|Strip of 10|25|0
+Stomach & Digestion|Eldoper (Loperamide)|Diarrhoea control|Strip of 10|28|0
+Stomach & Digestion|Udiliv 300|Ursodeoxycholic acid – liver|Strip of 15|720|1
+Antibiotics|Augmentin 625 Duo|Amoxicillin + Clavulanic acid|Strip of 10|225|1
+Antibiotics|Azithral 500|Azithromycin|Strip of 5|120|1
+Antibiotics|Mox 500|Amoxicillin capsules|Strip of 10|85|1
+Antibiotics|Ciplox 500|Ciprofloxacin|Strip of 10|65|1
+Antibiotics|Taxim-O 200|Cefixime|Strip of 10|110|1
+Antibiotics|Doxycycline 100|Doxycycline capsules|Strip of 10|60|1
+Antibiotics|Metrogyl 400|Metronidazole – infections|Strip of 15|26|1
+Antibiotics|Norflox-TZ|Norfloxacin + Tinidazole|Strip of 10|95|1
+Antibiotics|Levoflox 500|Levofloxacin|Strip of 10|110|1
+Antibiotics|Forcan 150|Fluconazole – antifungal|Strip of 1|25|1
+Antibiotics|Zentel|Albendazole – deworming|1 tablet|20|0
+Diabetes Care|Metformin 500 mg (Glycomet 500)|Metformin 500mg – blood sugar & diabetes care|Strip of 20|30|1
+Diabetes Care|Glycomet GP 1|Metformin + Glimepiride|Strip of 15|115|1
+Diabetes Care|Janumet 50/500|Sitagliptin + Metformin|Strip of 15|490|1
+Diabetes Care|Galvus Met|Vildagliptin + Metformin|Strip of 15|380|1
+Diabetes Care|Amaryl 1mg|Glimepiride|Strip of 30|190|1
+Diabetes Care|Jardiance 10|Empagliflozin|Strip of 10|560|1
+Diabetes Care|Huminsulin 30/70|Insulin injection|10 ml vial|180|1
+Diabetes Care|Lantus Solostar|Insulin glargine pen|3 ml pen|720|1
+Diabetes Care|Accu-Chek Active Strips|Glucometer test strips|Box of 50|950|0
+Diabetes Care|Sugar Free Gold|Sugar substitute|100 pellets|125|0
+Heart & BP|Lisinopril 10 mg|Lisinopril 10mg – hypertension & blood pressure care|Strip of 15|95|1
+Heart & BP|Telma 40|Telmisartan – blood pressure|Strip of 15|230|1
+Heart & BP|Amlong 5|Amlodipine – hypertension|Strip of 15|80|1
+Heart & BP|Losar 50|Losartan|Strip of 15|95|1
+Heart & BP|Atorvastatin 20 mg (Atorva)|Atorvastatin 20mg – cholesterol & heart care|Strip of 15|110|1
+Heart & BP|Rosuvas 10|Rosuvastatin|Strip of 15|240|1
+Heart & BP|Ecosprin 75|Low-dose aspirin – heart protection|Strip of 14|5|1
+Heart & BP|Clopitab 75|Clopidogrel|Strip of 15|95|1
+Heart & BP|Metolar XR 50|Metoprolol|Strip of 15|140|1
+Heart & BP|Concor 5|Bisoprolol|Strip of 10|135|1
+Heart & BP|Sorbitrate 5|Isosorbide dinitrate – angina|Strip of 50|35|1
+Heart & BP|Lasix 40|Furosemide – diuretic|Strip of 15|15|1
+Vitamins & Supplements|Becosules Capsules|Vitamin B-complex + Vitamin C|Strip of 20|50|0
+Vitamins & Supplements|Supradyn Daily|Multivitamin tablets|Strip of 15|55|0
+Vitamins & Supplements|Revital H|Multivitamin with ginseng|Pack of 30|340|0
+Vitamins & Supplements|Limcee 500|Vitamin C chewable|Strip of 15|25|0
+Vitamins & Supplements|Shelcal 500|Calcium + Vitamin D3|Strip of 15|125|0
+Vitamins & Supplements|Uprise D3 60K|Vitamin D3 60000 IU|4 capsules|120|0
+Vitamins & Supplements|Neurobion Forte|Vitamin B12 complex|Strip of 30|40|0
+Vitamins & Supplements|Zincovit|Multivitamin with zinc|Strip of 15|110|0
+Vitamins & Supplements|Evion 400|Vitamin E capsules|Strip of 10|35|0
+Vitamins & Supplements|Livogen|Iron + Folic acid|Strip of 15|60|0
+Vitamins & Supplements|Seven Seas Cod Liver Oil|Omega-3 capsules|Pack of 100|450|0
+Vitamins & Supplements|Ensure Powder|Complete adult nutrition|400 g|720|0
+Vitamins & Supplements|Protinex Original|Protein supplement|250 g|520|0
+Skin Care|Betnovate-N Cream|Betamethasone + Neomycin|20 g|45|1
+Skin Care|Candid Cream|Clotrimazole – fungal infection|20 g|90|0
+Skin Care|Candid Dusting Powder|Antifungal powder|100 g|140|0
+Skin Care|Soframycin Cream|Antibacterial cream|30 g|60|0
+Skin Care|Boroline|Antiseptic cream|20 g|40|0
+Skin Care|Lacto Calamine Lotion|Oil control & soothing|120 ml|170|0
+Skin Care|Cetaphil Moisturising Lotion|Gentle moisturiser|100 ml|380|0
+Skin Care|Itch Guard Cream|Itch relief|20 g|85|0
+Skin Care|Scabper (Permethrin 5%)|Scabies & lice|30 g|120|1
+Skin Care|Nizral Shampoo|Ketoconazole – anti-dandruff|100 ml|320|0
+Skin Care|T-Bact Ointment|Mupirocin – skin infection|5 g|130|1
+Skin Care|Neosporin Powder|Antibiotic wound powder|10 g|110|0
+Eye & Ear Care|Refresh Tears|Lubricating eye drops|10 ml|150|0
+Eye & Ear Care|Moxicip Eye Drops|Moxifloxacin – eye infection|5 ml|90|1
+Eye & Ear Care|Itone Eye Drops|Ayurvedic eye drops|10 ml|90|0
+Eye & Ear Care|Ciplox-D Eye/Ear Drops|Ciprofloxacin + Dexamethasone|5 ml|25|1
+Eye & Ear Care|Waxsol Ear Drops|Ear wax removal|10 ml|95|0
+Eye & Ear Care|Otogesic Ear Drops|Earache relief|5 ml|70|1
+Women's Health|Meprate 10|Medroxyprogesterone|Strip of 10|85|1
+Women's Health|Folvite 5mg|Folic acid|Strip of 30|35|1
+Women's Health|i-pill|Emergency contraceptive|1 tablet|110|0
+Women's Health|Mala-D|Oral contraceptive|Strip of 28|10|0
+Women's Health|Prega News|Pregnancy test kit|1 kit|60|0
+Women's Health|Whisper Ultra XL|Sanitary pads|Pack of 15|200|0
+Women's Health|Cystone|Urinary health (Himalaya)|60 tablets|185|0
+Women's Health|V Wash Plus|Intimate hygiene wash|100 ml|190|0
+Baby Care|Calpol Paediatric Syrup|Paracetamol for children|60 ml|35|0
+Baby Care|Woodward's Gripe Water|Colic & gas relief|130 ml|70|0
+Baby Care|Colicaid Drops|Simethicone – infant colic|15 ml|90|0
+Baby Care|Johnson's Baby Powder|Gentle baby powder|200 g|210|0
+Baby Care|Himalaya Baby Lotion|Baby moisturiser|200 ml|220|0
+Baby Care|Pampers Pants (M)|Baby diapers|Pack of 20|399|0
+Baby Care|Cerelac Wheat Apple|Infant cereal|300 g|285|0
+Baby Care|Nasivion Baby Drops|Saline nasal drops|10 ml|95|0
+Baby Care|Rash Free Cream|Diaper rash cream|50 g|165|0
+First Aid|Dettol Antiseptic Liquid|Disinfectant|250 ml|150|0
+First Aid|Savlon Antiseptic|Antiseptic liquid|200 ml|115|0
+First Aid|Band-Aid Strips|Adhesive bandages|Pack of 20|60|0
+First Aid|Betadine Ointment|Povidone-iodine wound care|20 g|130|0
+First Aid|Crepe Bandage 10cm|Elastic support bandage|1 roll|120|0
+First Aid|Absorbent Cotton Roll|Surgical cotton|100 g|55|0
+First Aid|Hansaplast Micropore Tape|Medical tape|1 roll|70|0
+First Aid|Burnol Cream|Burn relief|20 g|75|0
+First Aid|Silverex Ointment|Silver sulfadiazine – burns|20 g|105|1
+First Aid|Surgical Face Masks|3-ply masks|Pack of 50|199|0
+First Aid|Dettol Hand Sanitizer|Alcohol-based sanitiser|200 ml|100|0
+Ayurveda|Dabur Chyawanprash|Immunity booster|1 kg|380|0
+Ayurveda|Liv.52 (Himalaya)|Liver care tablets|100 tablets|175|0
+Ayurveda|Himalaya Ashwagandha|Stress & vitality|60 tablets|200|0
+Ayurveda|Triphala Churna|Digestion & detox|100 g|90|0
+Ayurveda|Septilin|Immunity tablets|60 tablets|185|0
+Ayurveda|Hajmola|Digestive candy|120 tablets|60|0
+Ayurveda|Zandu Balm|Headache & cold balm|8 ml|45|0
+Ayurveda|Patanjali Giloy Ghanvati|Immunity tablets|60 tablets|100|0
+Thyroid & Hormones|Thyronorm 50|Levothyroxine – hypothyroidism|Bottle of 120|180|1
+Thyroid & Hormones|Eltroxin 100|Levothyroxine|Bottle of 100|160|1
+Thyroid & Hormones|Neo-Mercazole 5|Carbimazole – hyperthyroidism|Strip of 30|95|1
+Thyroid & Hormones|Wysolone 10|Prednisolone – steroid|Strip of 10|18|1
+Thyroid & Hormones|Dexona|Dexamethasone tablets|Strip of 30|10|1
+Mental Health & Sleep|Restyl 0.25|Alprazolam – anxiety|Strip of 10|30|1
+Mental Health & Sleep|Nexito 10|Escitalopram – depression|Strip of 10|110|1
+Mental Health & Sleep|Zolfresh 10|Zolpidem – insomnia|Strip of 10|95|1
+Mental Health & Sleep|Melatonin 3mg|Sleep support|Pack of 30|350|0
+Mental Health & Sleep|Gabapin 300|Gabapentin – nerve pain|Strip of 10|180|1
+Personal Care|Colgate Sensitive|Toothpaste for sensitive teeth|80 g|120|0
+Personal Care|Sensodyne Repair|Sensitive toothpaste|70 g|215|0
+Personal Care|Listerine Cool Mint|Mouthwash|250 ml|170|0
+Personal Care|Durex Extra Thin|Condoms|Pack of 10|299|0
+Personal Care|Vaseline Petroleum Jelly|Skin protectant|85 g|120|0
+Personal Care|Odomos Cream|Mosquito repellent|100 g|95|0
+Devices|Dr. Morepen Digital Thermometer|Fast & accurate|1 unit|180|0
+Devices|Omron BP Monitor HEM-7120|Automatic BP monitor|1 unit|2150|0
+Devices|Accu-Chek Active Glucometer|Blood sugar monitor kit|1 kit|1290|0
+Devices|Pulse Oximeter|SpO2 & pulse monitor|1 unit|999|0
+Devices|Steam Vaporizer|Facial & nasal steam|1 unit|350|0
+Devices|Hot Water Bag|Pain relief bag|1 unit|250|0
+Devices|Nebulizer Machine|Compressor nebulizer|1 unit|1650|0
+Devices|Tynor Knee Cap|Knee support|1 pair|420|0`.split("\n").map((l,i)=>{const[c,n,u,p,pr,rx]=l.split("|");return{id:i,c,n,u,p,pr:+pr,rx:rx=="1"}});
+
+// Centralized Demo Product Mapping for Sanjeevani AI Deep-Link Integration
+const DEMO_PRODUCT_MAPPING = {
+ "metformin": "DEMO_PRODUCT_METFORMIN",
+ "lisinopril": "DEMO_PRODUCT_LISINOPRIL",
+ "atorvastatin": "DEMO_PRODUCT_ATORVASTATIN",
+ "amlodipine": "DEMO_PRODUCT_AMLODIPINE",
+ "telmisartan": "DEMO_PRODUCT_TELMISARTAN",
+ "losartan": "DEMO_PRODUCT_LOSARTAN",
+ "aspirin": "DEMO_PRODUCT_ASPIRIN",
+ "pantoprazole": "DEMO_PRODUCT_PANTOPRAZOLE",
+ "paracetamol": "DEMO_PRODUCT_PARACETAMOL",
+ "levothyroxine": "DEMO_PRODUCT_LEVOTHYROXINE"
+};
+
+// Assign centralized demoId to matching catalogue items
+D.forEach(item => {
+ const text = (item.n + " " + item.u).toLowerCase();
+ for (const [key, demoCode] of Object.entries(DEMO_PRODUCT_MAPPING)) {
+  if (!item.demoId && text.includes(key)) {
+   item.demoId = demoCode;
+  }
+ }
+});
+
+let selectedSanjeevaniMedId = null;
+let selectedSanjeevaniQuery = "";
+let selectedSanjeevaniDemoCode = "";
+
+let cat="",cart=load("cart",{}),wish=load("wish",[]),wishView=false;
+function load(k,d){try{return JSON.parse(localStorage.getItem("mc_"+k))||d}catch(e){return d}}
+function save(){try{localStorage.setItem("mc_cart",JSON.stringify(cart));localStorage.setItem("mc_wish",JSON.stringify(wish))}catch(e){}}
+const $=id=>document.getElementById(id);
+const C=Object.keys(CATS);
+$("nav").innerHTML=`<a class="on" onclick="pick(-1)">🏠 All Products</a>`+C.map((c,i)=>`<a onclick="pick(${i})">${CATS[c]} ${c}</a>`).join("");
+$("catGrid").innerHTML=C.map((c,i)=>`<div class="cat" onclick="pick(${i})"><div class="e">${CATS[c]}</div><p>${c}</p><small style="color:var(--mt)">${D.filter(d=>d.c==c).length} items</small></div>`).join("");
+function pick(i){cat=i<0?"":C[i];wishView=false;$("q").value="";document.querySelectorAll("nav a").forEach((a,j)=>a.classList.toggle("on",j==i+1));render();$("shop").scrollIntoView({behavior:"smooth"})}
+function go(){wishView=false;render();$("shop").scrollIntoView({behavior:"smooth"})}
+$("q").addEventListener("input",()=>{wishView=false;render()});
+$("q").addEventListener("keydown",e=>e.key=="Enter"&&go());
+function showWish(){wishView=true;render();$("shop").scrollIntoView({behavior:"smooth"})}
+function render(){
+ const q=$("q").value.toLowerCase().trim(),f=$("rxf").value,s=$("sort").value;
+ let L=D.filter(d=>(wishView?wish.includes(d.id):(!cat||d.c==cat))&&(!q||(d.n+" "+d.u+" "+d.c).toLowerCase().includes(q))&&(!f||(f=="rx")==d.rx));
+ if(s=="lo")L.sort((a,b)=>a.pr-b.pr);if(s=="hi")L.sort((a,b)=>b.pr-a.pr);if(s=="az")L.sort((a,b)=>a.n.localeCompare(b.n));
+ // If a medicine was selected from Sanjeevani AI and no active filter hides it, ensure it is visible
+ if(selectedSanjeevaniMedId!==null && !wishView && !q && !cat && !f && !s){
+  const selItem=D.find(x=>x.id===selectedSanjeevaniMedId);
+  if(selItem){
+   L=[selItem,...L.filter(x=>x.id!==selectedSanjeevaniMedId)];
+  }
+ }
+ $("title").textContent=wishView?"♡ Your Wishlist":q?`Results for "${q}"`:cat||"All Medicines";
+ $("count").textContent=L.length+" products";
+ $("grid").innerHTML=L.length?L.map(d=>{
+  const isSel = d.id === selectedSanjeevaniMedId;
+  return `<div class="card${isSel?' sanjeevani-selected':''}" id="${isSel?'sanjeevani-selected-card':'card-'+d.id}" data-demo-product="${d.demoId||''}">
+  ${isSel?`<div class="sanjeevani-badge-bar"><span>✨ Selected from Sanjeevani AI</span><span class="proto">Hackathon Prototype / Demo</span></div>`:''}
+  ${d.rx?'<span class="rx" style="'+(isSel?'top:40px':'')+'">Rx</span>':''}<button class="wl" style="${isSel?'top:38px':''}" onclick="wl(${d.id})">${wish.includes(d.id)?"❤️":"🤍"}</button>
+  <div class="img">${art(d)}<img src="images/${slug(d.n)}.jpg" alt="${d.n}" loading="lazy" onload="this.style.display='block'" onerror="imgErr(this)"></div><div class="b"><h4>${d.n}</h4><div class="u">${d.p} • ${d.c}</div><div class="d">${d.u}</div>
+  ${isSel?`<div class="sanjeevani-details-box">
+   <div><b>Selected from Sanjeevani AI</b></div>
+   <div style="margin-top:3px">Demo Product ID: <code>${esc(d.demoId||selectedSanjeevaniDemoCode)}</code></div>
+   <div>Refill Pack: <b>${esc(d.p)} (30-Day Supply)</b></div>
+   <div style="color:#0f5c7a;font-weight:600;margin-top:3px">✓ Ready for Demo Refill Review (Not added to real cart)</div>
+   <button class="sanjeevani-demo-btn" onclick="openDemoCheckout(${d.id})">Proceed to Demo Checkout →</button>
+  </div>`:''}
+  <div class="pr"><span><b>₹${Math.round(d.pr*.85)}</b><s>₹${d.pr}</s></span><button class="add" onclick="add(${d.id})">Add +</button></div></div></div>`;
+ }).join(""):'<div class="empty">No products found. Try another search.</div>';
+}
+
+// Drawn pack illustrations (shown when no real photo exists in /images)
+const HUE={};C.forEach((c,i)=>HUE[c]=Math.round(i*360/C.length));
+function esc(t){return t.replace(/&/g,"&amp;").replace(/</g,"&lt;")}
+function kind(d){const t=(d.n+" "+d.p+" "+d.u).toLowerCase();
+ if(d.c=="Devices")return"box";if(/inhaler/.test(t))return"inhaler";if(/strip|tablets|capsules|pellets|caps\b/.test(t))return"strip";
+ if(/drops|spray/.test(t))return"dropper";if(/cream|ointment|gel\b|balm|tube|toothpaste|jelly|repair|sensitive/.test(t)&&/ g\b|ml/.test(t))return"tube";
+ if(/ ml|syrup|liquid|lotion|wash|vial|tonic|water/.test(t))return"bottle";return"box"}
+function art(d){const h=HUE[d.c],c1=`hsl(${h},55%,45%)`,c2=`hsl(${h},60%,92%)`,c3=`hsl(${h},50%,30%)`,k=kind(d);
+ const nm=esc(d.n.length>18?d.n.slice(0,17)+"…":d.n),sub=esc(d.p);
+ let g="";
+ if(k=="strip"){g=`<rect x="40" y="35" width="170" height="100" rx="8" fill="#e9eef0" stroke="#b9c3c7"/><rect x="40" y="35" width="170" height="26" rx="8" fill="${c1}"/><text x="125" y="53" font-size="12" fill="#fff" text-anchor="middle" font-weight="600">${nm}</text>`;
+  for(let r=0;r<2;r++)for(let i=0;i<5;i++)g+=`<ellipse cx="${62+i*32}" cy="${83+r*30}" rx="12" ry="10" fill="#fff" stroke="#c9d2d6"/><ellipse cx="${62+i*32}" cy="${83+r*30}" rx="7" ry="6" fill="${c2}"/>`;}
+ else if(k=="bottle"){g=`<rect x="105" y="18" width="40" height="18" rx="3" fill="${c3}"/><path d="M98 38h54l8 16v92a8 8 0 0 1-8 8H98a8 8 0 0 1-8-8V54z" fill="${c1}"/><rect x="94" y="70" width="62" height="56" rx="4" fill="#fff"/><text x="125" y="94" font-size="9" fill="${c3}" text-anchor="middle" font-weight="600">${nm}</text><text x="125" y="110" font-size="8" fill="#777" text-anchor="middle">${sub}</text>`;}
+ else if(k=="dropper"){g=`<path d="M117 12h16v14h-16z" fill="${c3}"/><rect x="110" y="26" width="30" height="16" rx="3" fill="${c3}"/><rect x="98" y="42" width="54" height="104" rx="10" fill="${c1}"/><rect x="102" y="70" width="46" height="50" rx="4" fill="#fff"/><text x="125" y="92" font-size="8" fill="${c3}" text-anchor="middle" font-weight="600">${nm.slice(0,12)}</text><text x="125" y="106" font-size="7" fill="#777" text-anchor="middle">${sub}</text>`;}
+ else if(k=="tube"){g=`<path d="M45 60h140l12 10v30l-12 10H45z" fill="${c1}"/><rect x="197" y="72" width="22" height="26" rx="3" fill="${c3}"/><path d="M40 58h8v54h-8z" fill="${c3}"/><rect x="62" y="70" width="110" height="30" rx="4" fill="#fff"/><text x="117" y="85" font-size="10" fill="${c3}" text-anchor="middle" font-weight="600">${nm}</text><text x="117" y="96" font-size="7" fill="#777" text-anchor="middle">${sub}</text>`;}
+ else if(k=="inhaler"){g=`<rect x="105" y="20" width="44" height="80" rx="8" fill="#d8dee2"/><path d="M95 95h64v30a10 10 0 0 1-10 10h-44a10 10 0 0 1-10-10z" fill="${c1}"/><rect x="138" y="120" width="40" height="22" rx="5" fill="${c1}"/><text x="127" y="62" font-size="8" fill="${c3}" text-anchor="middle" font-weight="600" transform="rotate(-90 127 62)">${nm}</text>`;}
+ else{g=`<path d="M70 45l20-15h100l-20 15z" fill="${c3}"/><path d="M170 45l20-15v100l-20 15z" fill="${c3}" opacity=".8"/><rect x="70" y="45" width="100" height="100" fill="${c1}"/><rect x="76" y="70" width="88" height="50" fill="#fff"/><text x="120" y="90" font-size="9" fill="${c3}" text-anchor="middle" font-weight="600">${nm.slice(0,16)}</text><text x="120" y="106" font-size="7" fill="#777" text-anchor="middle">${sub}</text><text x="120" y="62" font-size="14" fill="#fff" text-anchor="middle">✚</text>`;}
+ return`<svg viewBox="0 0 250 165" xmlns="http://www.w3.org/2000/svg" font-family="Poppins,sans-serif"><rect width="250" height="165" fill="${c2}"/><ellipse cx="125" cy="155" rx="80" ry="6" fill="#0001"/>${g}</svg>`}
+
+// Product photos: put files in an "images" folder next to this page, named like dolo-650-tablet.jpg (or .png / .webp).
+// If no photo is found, the category icon is shown instead.
+function slug(n){return n.toLowerCase().replace(/[^a-z0-9]+/g,"-").replace(/^-|-$/g,"")}
+function imgErr(im){const ext=["png","webp"],i=+(im.dataset.t||0);if(i<ext.length){im.dataset.t=i+1;im.src=im.src.replace(/\.\w+$/,"."+ext[i])}else im.remove()}
+function wl(id){wish=wish.includes(id)?wish.filter(x=>x!=id):[...wish,id];save();upd();render()}
+function add(id){cart[id]=(cart[id]||0)+1;save();upd();toast("Added "+D[id].n+(D[id].rx?" (Rx required)":""))}
+function qty(id,d){cart[id]+=d;if(cart[id]<=0)delete cart[id];save();upd()}
+function upd(){
+ const ids=Object.keys(cart);$("cc").textContent=ids.reduce((a,k)=>a+cart[k],0);$("wc").textContent=wish.length;
+ let t=0;$("items").innerHTML=ids.length?ids.map(k=>{const d=D[k],p=Math.round(d.pr*.85);t+=p*cart[k];return`<div class="it"><span style="font-size:26px">${CATS[d.c]}</span><div><b>${d.n}</b><br><small>₹${p} × ${cart[k]}</small></div><button onclick="qty(${k},-1)">−</button>${cart[k]}<button onclick="qty(${k},1)">+</button></div>`}).join(""):'<p class="empty">Your cart is empty</p>';
+ if(t>=999)t=Math.round(t*.8);$("tt").textContent="₹"+t+(t>0&&t<499?" + ₹40 delivery":"");
+}
+function tog(o){$("dr").classList.toggle("op",!!o);$("ov").classList.toggle("op",!!o)}
+function checkout(){if(!Object.keys(cart).length)return toast("Cart is empty");tog(0);coRx=rxs.length?String(rxs[0].id):"";$("com").classList.add("op");drawCo()}
+let coRx="",coPay="cod";
+function closeCo(){$("com").classList.remove("op")}
+function totals(){let sub=0;Object.keys(cart).forEach(k=>sub+=Math.round(D[k].pr*.85)*cart[k]);const off=sub>=999?Math.round(sub*.2):0,del=sub-off>0&&sub-off<499?40:0;return{sub,off,del,tot:sub-off+del}}
+function coVal(id){const e=$(id);return e?e.value:""}
+function drawCo(){const keep={};["con","cop","coa","cocity","copin"].forEach(i=>keep[i]=coVal(i));
+ const ids=Object.keys(cart),t=totals(),needRx=ids.some(k=>D[k].rx);
+ $("cobox").innerHTML=`<h3>🛒 Checkout <span style="cursor:pointer" onclick="closeCo()">✕</span></h3>
+ <h4>1. Order summary</h4>${ids.map(k=>`<div class="row"><span>${esc(D[k].n)}${D[k].rx?' <small style="color:#c0392b">Rx</small>':""} × ${cart[k]}</span><span>₹${Math.round(D[k].pr*.85)*cart[k]}</span></div>`).join("")}
+ <div class="row" style="border-top:1px solid var(--ln);margin-top:6px"><span>Subtotal</span><span>₹${t.sub}</span></div>
+ ${t.off?`<div class="row" style="color:var(--g)"><span>Health offer (20% off)</span><span>−₹${t.off}</span></div>`:""}
+ <div class="row"><span>Delivery</span><span>${t.del?"₹"+t.del:"FREE"}</span></div>
+ <div class="row" style="font-size:16px"><b>Total</b><b>₹${t.tot}</b></div>
+ ${needRx?`<h4>2. Prescription <small style="color:#c0392b">(required for Rx medicines)</small></h4>
+  ${rxs.map(r=>`<label class="opt"><input type="radio" name="corx" value="${r.id}" ${coRx==r.id?"checked":""} onchange="coRx=this.value"><span><b>${esc(r.p)}</b>${r.d?" • "+esc(r.d):""}<br><small>Uploaded ${new Date(r.id).toLocaleDateString()}</small></span></label>`).join("")}
+  <label class="opt"><input type="radio" name="corx" value="later" ${coRx=="later"?"checked":""} onchange="coRx=this.value"><span><b>I'll show the original prescription at delivery</b><br><small>Our pharmacist will verify it before handing over Rx medicines.</small></span></label>
+  <button class="btn o" style="width:100%;margin-top:8px" onclick="closeCo();openRx()">📄 Upload a new prescription</button>`:""}
+ <h4>${needRx?3:2}. Delivery details</h4>
+ <label>Full name *</label><input id="con"><label>Mobile number *</label><input id="cop" type="tel" maxlength="10" placeholder="10-digit mobile">
+ <label>Address *</label><textarea id="coa" rows="2" placeholder="House no, street, area"></textarea>
+ <div class="two"><div><label>City *</label><input id="cocity"></div><div><label>PIN code *</label><input id="copin" maxlength="6"></div></div>
+ <h4>${needRx?4:3}. Payment</h4>
+ ${[["cod","💵 Cash on delivery"],["upi","📱 UPI on delivery (GPay / PhonePe / Paytm)"],["card","💳 Card on delivery"]].map(([v,l])=>`<label class="opt"><input type="radio" name="copay" value="${v}" ${coPay==v?"checked":""} onchange="coPay=this.value"><span>${l}</span></label>`).join("")}
+ <button class="btn" style="width:100%;margin-top:18px" onclick="placeOrder()">Place Order • ₹${t.tot}</button>`;
+ Object.keys(keep).forEach(i=>{if($(i))$(i).value=keep[i]})}
+function placeOrder(){const ids=Object.keys(cart),needRx=ids.some(k=>D[k].rx);
+ if(needRx&&!coRx)return toast("Choose a prescription option for your Rx medicines");
+ const v={n:coVal("con").trim(),p:coVal("cop").trim(),a:coVal("coa").trim(),c:coVal("cocity").trim(),pin:coVal("copin").trim()};
+ if(!v.n||!v.a||!v.c)return toast("Please fill in your name, address and city");
+ if(!/^[6-9]\d{9}$/.test(v.p))return toast("Please enter a valid 10-digit mobile number");
+ if(!/^\d{6}$/.test(v.pin))return toast("Please enter a valid 6-digit PIN code");
+ const t=totals(),oid="MC"+Date.now().toString().slice(-8);
+ $("cobox").innerHTML=`<div class="ok"><div class="big">✅</div><h3 style="justify-content:center">Order Placed!</h3>
+ <p>Order ID: <b>${oid}</b></p><p style="font-size:14px;color:var(--mt);margin-top:8px">Thank you, ${esc(v.n)}. Your order of <b>₹${t.tot}</b> will be delivered to ${esc(v.a)}, ${esc(v.c)} – ${esc(v.pin)}.<br>We'll call you on ${esc(v.p)} to confirm.${needRx?"<br>Our pharmacist will verify your prescription before dispatch.":""}</p>
+ <button class="btn" onclick="closeCo()">Continue Shopping</button></div>`;
+ cart={};save();upd()}
+// Prescriptions
+let rxs=load("rx",[]),pend=[];
+function saveRxs(){try{localStorage.setItem("mc_rx",JSON.stringify(rxs));return true}catch(e){toast("Saved for this visit only (browser storage is full)");return false}}
+function openRx(){$("rxm").classList.add("op");drawRx()}
+function closeRx(){$("rxm").classList.remove("op")}
+function shrink(f){return new Promise(res=>{const r=new FileReader();r.onload=()=>{if(!f.type.startsWith("image/"))return res({name:f.name,type:f.type,data:r.result});
+ const im=new Image();im.onload=()=>{const k=Math.min(1,1200/Math.max(im.width,im.height)),c=document.createElement("canvas");c.width=im.width*k;c.height=im.height*k;c.getContext("2d").drawImage(im,0,0,c.width,c.height);res({name:f.name,type:"image/jpeg",data:c.toDataURL("image/jpeg",.75)})};im.src=r.result};r.readAsDataURL(f)})}
+async function addFiles(fs){for(const f of [...fs]){if(pend.length>=5)break;if(!/^image\/|pdf$/.test(f.type))continue;if(f.size>8e6){toast(f.name+" is too large (max 8 MB)");continue}pend.push(await shrink(f))}drawPrev()}
+function drawPrev(){$("prev").innerHTML=pend.map((f,i)=>`<div title="${esc(f.name)}" onclick="pend.splice(${i},1);drawPrev()">${f.type.startsWith("image/")?`<img src="${f.data}">`:"📄<br>"+esc(f.name.slice(0,14))}</div>`).join("")}
+$("rxf2").onchange=e=>{addFiles(e.target.files);e.target.value=""};
+const dz=$("drop");["dragover","dragenter"].forEach(ev=>dz.addEventListener(ev,e=>{e.preventDefault();dz.classList.add("on")}));
+["dragleave","drop"].forEach(ev=>dz.addEventListener(ev,e=>{e.preventDefault();dz.classList.remove("on")}));dz.addEventListener("drop",e=>addFiles(e.dataTransfer.files));
+function saveRx(){const p=$("rxp").value.trim();if(!p)return toast("Please enter the patient name");if(!pend.length)return toast("Please add a prescription photo or PDF");
+ const files=pend;rxs.unshift({id:Date.now(),p,d:$("rxd").value.trim(),dt:$("rxdt").value,n:$("rxn").value.trim(),files});
+ saveRxs();pend=[];["rxp","rxd","rxdt","rxn"].forEach(i=>$(i).value="");drawPrev();drawRx();toast("Prescription saved ✔");readRx(files)}
+function delRx(id){if(!confirm("Delete this prescription?"))return;rxs=rxs.filter(r=>r.id!=id);saveRxs();drawRx()}
+function viewRx(id,i){const f=rxs.find(r=>r.id==id).files[i];const w=window.open();if(w)w.document.write(f.type.startsWith("image/")?`<img src="${f.data}" style="max-width:100%">`:`<iframe src="${f.data}" style="border:0;width:100%;height:100vh"></iframe>`)}
+function drawRx(){$("rc").textContent=rxs.length;$("rxlist").innerHTML=rxs.length?rxs.map(r=>`<div class="rxi">${r.files[0].type.startsWith("image/")?`<img src="${r.files[0].data}">`:'<span style="font-size:30px">📄</span>'}
+ <div><b>${esc(r.p)}</b>${r.d?" • "+esc(r.d):""}<br><small>${r.dt||new Date(r.id).toLocaleDateString()} • ${r.files.map((f,i)=>`<a style="color:var(--g);cursor:pointer;text-decoration:underline" onclick="viewRx(${r.id},${i})">file ${i+1}</a>`).join(" ")}</small></div>
+ <button onclick="delRx(${r.id})">Delete</button></div>`).join(""):'<p style="font-size:13px;color:var(--mt);margin-top:6px">No prescriptions yet.</p>'}
+drawRx();
+// ---- Read prescription (OCR) and match medicines to the catalogue ----
+const STOP=new Set("tablet tablets tab tabs syrup cream gel drops drop eye ear spray nasal powder lotion ointment capsule capsules cap the and baby plus forte daily original liquid antiseptic digital strips strip pack advance ultra extra cool mint shampoo balm vial pen kit machine monitor bag water".split(" "));
+function norm(t){return t.toLowerCase().replace(/([a-z])(\d)/g,"$1 $2").replace(/[^a-z0-9]+/g," ").trim()}
+function lev(a,b){if(Math.abs(a.length-b.length)>2)return 9;const m=[...Array(b.length+1).keys()];for(let i=1;i<=a.length;i++){let p=m[0];m[0]=i;for(let j=1;j<=b.length;j++){const t=m[j];m[j]=Math.min(m[j]+1,m[j-1]+1,p+(a[i-1]==b[j-1]?0:1));p=t}}return m[b.length]}
+function hit(w,words){if(words.has(w))return 1;if(w.length<5)return 0;for(const x of words)if(lev(w,x)<=(w.length>=8?2:1))return .8;return 0}
+function matchText(text){const words=new Set(norm(text).split(" ").filter(Boolean)),best={};
+ D.forEach(d=>{const tk=norm(d.n.replace(/\(.*?\)/g,"")).split(" "),key=tk.find(t=>/^[a-z]{3,}$/.test(t)&&!STOP.has(t));if(!key)return;
+  const h=hit(key,words);if(!h)return;let sc=h*2;tk.forEach(t=>{if(t!=key&&words.has(t))sc+=/\d/.test(t)?1:.5});
+  if(!best[key]||sc>best[key].sc)best[key]={d,sc}});
+ return Object.values(best).filter(b=>b.sc>=1.6).sort((a,b)=>b.sc-a.sc).map(b=>b.d)}
+function loadOCR(){return window.Tesseract?Promise.resolve():new Promise((ok,no)=>{const sc=document.createElement("script");sc.src="https://cdn.jsdelivr.net/npm/tesseract.js@5/dist/tesseract.min.js";sc.onload=ok;sc.onerror=()=>no(new Error("Could not load the reader – check your internet connection"));document.head.appendChild(sc)})}
+async function readRx(files){const box=$("scan"),imgs=files.filter(f=>f.type.startsWith("image/"));box.style.display="block";
+ if(!imgs.length){box.innerHTML="<h4>📄 PDF saved</h4><p style='font-size:13px'>PDFs can't be read automatically. Please type the medicine names below.</p>";return}
+ box.innerHTML="<h4>🔍 Reading your prescription…</h4><div class='prog'><i id='pg'></i></div><small id='pgt'>Loading reader…</small>";
+ try{await loadOCR();let text="";
+  for(let i=0;i<imgs.length;i++){const r=await Tesseract.recognize(imgs[i].data,"eng",{logger:m=>{if(m.status=="recognizing text"&&$("pg")){$("pg").style.width=Math.round((i+m.progress)/imgs.length*100)+"%";$("pgt").textContent="Reading page "+(i+1)+" of "+imgs.length+"…"}}});text+=" "+r.data.text}
+  findMeds(text,"prescription")}catch(e){box.innerHTML="<h4>⚠️ Couldn't read it</h4><p style='font-size:13px'>"+esc(e.message)+". Please type the medicine names below.</p>"}}
+function findMeds(text,src){const box=$("scan"),L=matchText(text||"");box.style.display="block";
+ if(!L.length){box.innerHTML=`<h4>🤔 No medicines recognised</h4><p style="font-size:13px">We couldn't match anything in your ${src} to our catalogue. Handwritten prescriptions are hard to read automatically – please type the medicine names below, or our pharmacist will review it after you order.</p>`;return}
+ box.innerHTML=`<h4>✅ Found ${L.length} medicine${L.length>1?"s":""} in your ${src}</h4><p style="font-size:12px;color:var(--mt)">Please check this list against your prescription. Untick anything that's wrong and set the quantity (strips/packs).</p>`+
+ L.map(d=>`<div class="det"><input type="checkbox" checked data-id="${d.id}"><span><b>${esc(d.n)}</b>${d.rx?' <small style="color:#c0392b">Rx</small>':""}<br><small>${esc(d.p)} • ₹${Math.round(d.pr*.85)}</small></span><input type="number" min="1" max="20" value="1"></div>`).join("")+
+ `<button class="btn" style="width:100%;margin-top:12px" onclick="addFound()">🛒 Add selected to cart</button>`}
+function addFound(){let n=0;document.querySelectorAll("#scan .det").forEach(r=>{const c=r.querySelector("input[type=checkbox]");if(c.checked){const id=+c.dataset.id,q=Math.max(1,Math.min(20,+r.querySelector("input[type=number]").value||1));cart[id]=(cart[id]||0)+q;n+=q}});
+ if(!n)return toast("Nothing selected");save();upd();closeRx();tog(1);toast(n+" item(s) added from your prescription")}
+function toast(m){const t=$("toast");t.textContent=m;t.classList.add("sh");clearTimeout(t._);t._=setTimeout(()=>t.classList.remove("sh"),2200)}
+
+// ---- Sanjeevani AI Demo-Only Deep-Link & Mock Checkout Integration ----
+function resolveDemoMedicineFromParam(rawMedParam){
+ if(!rawMedParam) return null;
+ const raw = rawMedParam.trim();
+ if(!raw) return null;
+ const cleanKey = raw.replace(/\b\d+\s*(mg|mcg|g|ml|iu|tablets?|tabs?|capsules?|caps?)\b.*$/i,"").trim().toLowerCase() || raw.toLowerCase();
+ let demoCode = DEMO_PRODUCT_MAPPING[cleanKey];
+ if(!demoCode){
+  for(const [k, code] of Object.entries(DEMO_PRODUCT_MAPPING)){
+   if(cleanKey.includes(k) || k.includes(cleanKey)){
+    demoCode = code;
+    break;
+   }
+  }
+ }
+ if(!demoCode){
+  demoCode = "DEMO_PRODUCT_" + cleanKey.replace(/[^a-z0-9]+/gi,"_").toUpperCase();
+ }
+ selectedSanjeevaniDemoCode = demoCode;
+
+ // 1. Match by centralized demoId first
+ let matched = D.find(item => item.demoId === demoCode);
+ // 2. Fallback match by name or therapeutic description
+ if(!matched){
+  matched = D.find(item => (item.n + " " + item.u).toLowerCase().includes(cleanKey));
+ }
+ // 3. If a custom medication was added in Sanjeevani AI, register a DEMO product so any medicine works dynamically
+ if(!matched){
+  matched = {
+   id: D.length,
+   c: "Heart & BP",
+   n: raw + " (Demo Refill Pack)",
+   u: raw + " – Daily prescribed wellness & maintenance medication",
+   p: "Strip of 30 tablets",
+   pr: 120,
+   rx: true,
+   demoId: demoCode
+  };
+  D.unshift(matched);
+ } else if(!matched.demoId){
+  matched.demoId = demoCode;
+ }
+ return matched;
+}
+
+function scrollToSelectedDemoProduct(){
+ const cardEl = $("sanjeevani-selected-card");
+ if(cardEl){
+  cardEl.scrollIntoView({ behavior: "smooth", block: "center" });
+ } else if($("sanjeevaniSpotlight")){
+  $("sanjeevaniSpotlight").scrollIntoView({ behavior: "smooth", block: "center" });
+ }
+}
+
+function renderSanjeevaniSpotlight(medItem){
+ const ribbon = $("sanjeevaniRibbon");
+ const spot = $("sanjeevaniSpotlight");
+ if(!medItem){
+  if(ribbon) ribbon.classList.remove("active");
+  if(spot) spot.classList.remove("active");
+  return;
+ }
+ if(ribbon){
+  ribbon.classList.add("active");
+  $("sanjeevaniRibbonText").innerHTML = `<b>Selected from Sanjeevani AI:</b> ${esc(medItem.n)} (<code>${esc(medItem.demoId||selectedSanjeevaniDemoCode)}</code>) • Hackathon Prototype / Demo`;
+ }
+ if(spot){
+  spot.classList.add("active");
+  const demoPrice = Math.round(medItem.pr * .85);
+  spot.innerHTML = `
+   <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;margin-bottom:10px">
+    <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap">
+     <span style="background:#0f5c7a;color:#fff;font-size:12px;font-weight:700;padding:4px 12px;border-radius:20px">✨ Selected from Sanjeevani AI</span>
+     <span style="background:#e8a33d;color:#1f2d27;font-size:11px;font-weight:700;padding:4px 10px;border-radius:20px;text-transform:uppercase">Hackathon Prototype / Demo</span>
+    </div>
+    <small style="color:#0f5c7a;font-weight:600">Demo Product ID: <code>${esc(medItem.demoId||selectedSanjeevaniDemoCode)}</code></small>
+   </div>
+   <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:16px">
+    <div>
+     <h4 style="font-size:20px;color:#0b5039;margin-bottom:4px">${esc(medItem.n)}</h4>
+     <p style="font-size:13px;color:#44544d">${esc(medItem.u)} • <b>${esc(medItem.p)}</b> • Indicative Demo Price: <b>₹${demoPrice}</b></p>
+     <p style="font-size:12px;color:#0f5c7a;margin-top:4px">🔒 <b>Demo-Only Safeguard:</b> Not automatically added to a real cart. No real order or payment will be processed.</p>
+    </div>
+    <div style="display:flex;gap:10px;flex-wrap:wrap">
+     <button class="btn" style="margin:0;background:#0f5c7a" onclick="openDemoCheckout(${medItem.id})">Proceed to Demo Checkout</button>
+     <button class="btn o" style="margin:0" onclick="scrollToSelectedDemoProduct()">View Highlighted Product ↓</button>
+    </div>
+   </div>
+  `;
+ }
+}
+
+function openDemoCheckout(medId){
+ const medItem = D.find(x => x.id === medId) || D.find(x => x.id === selectedSanjeevaniMedId);
+ if(!medItem) return;
+ const demoPrice = Math.round(medItem.pr * .85);
+ const modal = $("demoCoModal");
+ const box = $("demoCoBox");
+ if(!modal || !box) return;
+ modal.classList.add("op");
+ box.innerHTML = `
+  <div style="display:flex;align-items:center;justify-content:space-between;gap:8px;flex-wrap:wrap;margin-bottom:8px">
+   <span style="background:#0f5c7a;color:#fff;font-size:11px;font-weight:700;padding:4px 10px;border-radius:20px">Selected from Sanjeevani AI</span>
+   <span style="background:#e8a33d;color:#1f2d27;font-size:11px;font-weight:700;padding:4px 10px;border-radius:20px;text-transform:uppercase">Hackathon Prototype / Demo</span>
+  </div>
+  <h3>🧪 Demo Refill Checkout <span style="cursor:pointer" onclick="closeDemoCheckout()">✕</span></h3>
+  <div class="demo-proto-banner">
+   <span><b>Hackathon Prototype / Demo Mode:</b> This mock checkout simulates the refill handoff from Sanjeevani AI. No real cart, order, or payment is processed.</span>
+  </div>
+  <h4>1. Selected Medicine from Sanjeevani AI</h4>
+  <div style="background:#f3faf6;border:1px solid #b5dec8;border-radius:10px;padding:12px;font-size:13px">
+   <div class="row"><span><b>${esc(medItem.n)}</b></span><span><b>₹${demoPrice} (Demo)</b></span></div>
+   <div class="row"><span style="color:var(--mt)">Demo Product Mapping</span><span><code>${esc(medItem.demoId||selectedSanjeevaniDemoCode)}</code></span></div>
+   <div class="row"><span style="color:var(--mt)">Refill Pack Quantity</span><span>1 Pack (${esc(medItem.p)})</span></div>
+   <div class="row"><span style="color:var(--mt)">Source Application</span><span style="color:#0f5c7a;font-weight:600">Selected from Sanjeevani AI</span></div>
+  </div>
+  <h4>2. Example Delivery Details (Demo Pre-filled)</h4>
+  <label>Patient Full Name</label>
+  <input id="demoName" value="Alex Johnson (Demo Patient)">
+  <label>Contact Phone Number</label>
+  <input id="demoPhone" value="+1 555-019-2834">
+  <label>Delivery Address</label>
+  <textarea id="demoAddr" rows="2">742 Evergreen Terrace, Apt 4B, Springfield</textarea>
+  <div class="two">
+   <div><label>City</label><input id="demoCity" value="Springfield"></div>
+   <div><label>Postal / PIN Code</label><input id="demoPin" value="62704"></div>
+  </div>
+  <h4>3. Example Payment Method (Mock Only — No Charge)</h4>
+  <label class="opt">
+   <input type="radio" name="demopay" checked>
+   <span><b>🧪 Hackathon Demo Mode — No Real Payment Processed (₹0 Charged)</b><br><small>Simulates prescription refill confirmation without charging any payment method.</small></span>
+  </label>
+  <label class="opt">
+   <input type="radio" name="demopay">
+   <span><b>💵 Mock Pay on Delivery (Simulation Only)</b><br><small>Example delivery verification option for judge walkthrough.</small></span>
+  </label>
+  <button class="btn" style="width:100%;margin-top:18px;background:#0f5c7a;font-weight:600" onclick="placeDemoOrder(${medItem.id})">Place Demo Order</button>
+ `;
+}
+
+function placeDemoOrder(medId){
+ const medItem = D.find(x => x.id === medId) || D.find(x => x.id === selectedSanjeevaniMedId) || D[0];
+ const nameVal = ($("demoName") && $("demoName").value.trim()) || "Alex Johnson";
+ const addrVal = ($("demoAddr") && $("demoAddr").value.trim()) || "742 Evergreen Terrace, Apt 4B, Springfield";
+ const demoOrderId = "DEMO-SJ-" + Date.now().toString().slice(-6);
+ const box = $("demoCoBox");
+ if(!box) return;
+ box.innerHTML = `
+  <div class="ok" style="padding:10px 4px">
+   <div style="display:flex;justify-content:center;gap:8px;flex-wrap:wrap;margin-bottom:12px">
+    <span style="background:#0f5c7a;color:#fff;font-size:11px;font-weight:700;padding:4px 12px;border-radius:20px">Selected from Sanjeevani AI</span>
+    <span style="background:#e8a33d;color:#1f2d27;font-size:11px;font-weight:700;padding:4px 12px;border-radius:20px;text-transform:uppercase">Hackathon Prototype / Demo</span>
+   </div>
+   <div class="big">✅</div>
+   <h3 style="justify-content:center;font-size:22px;color:#0b5039;margin-top:6px">Demo order completed successfully</h3>
+   <p style="font-size:13px;color:#0f5c7a;font-weight:600;margin-top:4px">Hackathon Prototype / Demo — No real order or payment was processed</p>
+   <div style="text-align:left;background:#f3faf6;border:1px solid #b5dec8;border-radius:10px;padding:14px;margin:16px 0;font-size:13px">
+    <div class="row"><span>Demo Order Reference:</span><b>${demoOrderId}</b></div>
+    <div class="row"><span>Selected Medicine:</span><b>${esc(medItem.n)}</b></div>
+    <div class="row"><span>Demo Product Mapping:</span><code>${esc(medItem.demoId||selectedSanjeevaniDemoCode)}</code></div>
+    <div class="row"><span>Recipient (Demo):</span><span>${esc(nameVal)}</span></div>
+    <div class="row"><span>Delivery Address (Demo):</span><span>${esc(addrVal)}</span></div>
+    <div class="row"><span>Payment Processed:</span><b style="color:#0b5039">₹0 (Demo Simulation Only)</b></div>
+   </div>
+   <button class="btn" style="background:#0f5c7a" onclick="closeDemoCheckout()">Done (Close Demo Checkout)</button>
+  </div>
+ `;
+ toast("Demo order completed successfully");
+}
+
+function closeDemoCheckout(){
+ const modal = $("demoCoModal");
+ if(modal) modal.classList.remove("op");
+}
+
+function initSanjeevaniDeepLink(){
+ try {
+  const params = new URLSearchParams(window.location.search);
+  const medParam = params.get("medicine");
+  if(!medParam) return;
+  selectedSanjeevaniQuery = medParam;
+  const matched = resolveDemoMedicineFromParam(medParam);
+  if(matched){
+   selectedSanjeevaniMedId = matched.id;
+   renderSanjeevaniSpotlight(matched);
+   render();
+   setTimeout(() => {
+    scrollToSelectedDemoProduct();
+   }, 250);
+  }
+ } catch(e) {
+  console.warn("Sanjeevani deep-link init warning:", e);
+ }
+}
+
+render();upd();initSanjeevaniDeepLink();
+</script>
+</body></html>

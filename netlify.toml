@@ -1,0 +1,39 @@
+# Sanjeevani AI — Netlify Functions Backend & Routing Configuration
+# NOTE: Set GEMINI_API_KEY in Netlify Site Settings -> Environment Variables (never commit keys here).
+
+[build]
+  command = "npm run build"
+  publish = "dist"
+  functions = "netlify/functions"
+
+[functions]
+  directory = "netlify/functions"
+  node_bundler = "esbuild"
+
+# 1. Health Check Route
+[[redirects]]
+  from = "/api/medical-copilot/health"
+  to = "/.netlify/functions/medical-copilot-health"
+  status = 200
+  force = true
+
+# 2. Speech-to-Text Fallback Route
+[[redirects]]
+  from = "/api/medical-copilot/transcribe"
+  to = "/.netlify/functions/medical-copilot-transcribe"
+  status = 200
+  force = true
+
+# 3. Medical AI Copilot Route
+[[redirects]]
+  from = "/api/medical-copilot"
+  to = "/.netlify/functions/medical-copilot"
+  status = 200
+  force = true
+
+# 4. Medical Record Intelligence & OCR Extraction Route
+[[redirects]]
+  from = "/api/medical-records/extract"
+  to = "/.netlify/functions/medical-records-extract"
+  status = 200
+  force = true
